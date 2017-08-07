@@ -2,3 +2,4 @@ image: namshi/prometheus-sample
 tag: latest
 service:
   port: 8080
+host: sample-app.example.com
