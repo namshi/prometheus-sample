@@ -2,26 +2,29 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    app: sample-app
-  name: sample-app
+    app: {{ .Release.Name }}
+  name: {{ .Release.Name }}
   namespace: default
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: sample-app
+      app: {{ .Release.Name }}
   template:
     metadata:
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: {{ .Values.service.port | quote }}
       creationTimestamp: null
       labels:
-        app: sample-app
-      name: sample-app
+        app: {{ .Release.Name }}
+      name: {{ .Release.Name }}
     spec:
       restartPolicy: Always
       containers:
       - image: {{ .Values.image }}:{{ .Values.tag }}
         imagePullPolicy: Always
-        name: sample-app
+        name: {{ .Release.Name }}
         env:
         - name: HTTP_PORT
           value: {{ .Values.service.port | quote }}
