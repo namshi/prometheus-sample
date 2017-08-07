@@ -24,4 +24,4 @@ spec:
         name: sample-app
         env:
         - name: HTTP_PORT
-          value: {{ .Values.service.port }}
+          value: {{ .Values.service.port | quote }}
