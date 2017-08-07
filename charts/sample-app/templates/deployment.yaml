@@ -1,0 +1,27 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: sample-app
+  name: sample-app
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sample-app
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: sample-app
+      name: sample-app
+    spec:
+      restartPolicy: Always
+      containers:
+      - image: {{ .Values.image }}:{{ .Values.tag }}
+        imagePullPolicy: Always
+        name: sample-app
+        env:
+        - name: HTTP_PORT
+          value: {{ .Values.service.port }}

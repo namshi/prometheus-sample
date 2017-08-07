@@ -1,6 +1,6 @@
 require('http').createServer((req, res) => {
   console.log(req.url)
-  
+
   if (req.url === '/metrics') {
     res.writeHead(200, {'Content-Type': 'text/plain'})
     res.end(`test 1
@@ -12,4 +12,4 @@ failures 20
   }
 
   res.end('hello')
-}).listen(8080)
+}).listen(process.env.HTTP_PORT || 8080)
